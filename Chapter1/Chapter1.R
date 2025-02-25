@@ -165,8 +165,13 @@ sqrt(2)
 dice <- sample(die,size = 2, replace = TRUE)
 two <- 1+1
 a <- sqrt(2)
+
+
 roll2<-function(){}
+die <- 1:6
+dice <- sample(die, size = 2, replace = TRUE)
 roll2()
+
 roll2 <- function (bones){
   dice <- sample(bones, size=2, replace = TRUE)
   sum(dice)}
