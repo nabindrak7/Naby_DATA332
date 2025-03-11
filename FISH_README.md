@@ -44,3 +44,7 @@ Geometry: geom_bar(stat = "identity", position = "stack") creates a stacked bar 
 Labels: Titles and axis labels are added using labs() to make the chart more informative.
 
 Theme: The theme_minimal() function is used to apply a clean and minimal theme, and the x-axis labels are rotated for better readability using theme(axis.text.x = element_text(angle = 45, hjust = 1)).
+![01a115f6-e55d-421e-9e10-c87203ba1c76](https://github.com/user-attachments/assets/710da465-dc2f-480e-ab29-62a5167657d6)
+
+
+
