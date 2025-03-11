@@ -23,8 +23,8 @@ This section highlights the visualization of the relationship between fish count
 ![2e601b8e-b1aa-49db-97ad-63c9913c5957](https://github.com/user-attachments/assets/1d2d455c-aa74-4514-b2f9-63adc006788e)
 
 
-#Stacked Bar Chart: Total Fish Count by Species for Each Site
 
+##Stacked Bar Chart: Total Fish Count by Species for Each Site
 
 This stacked bar chart visualizes the total fish count by species for each site. It provides a clear breakdown of the distribution of fish species across different sites, making it easy to compare the abundance of each species at each location.
 
