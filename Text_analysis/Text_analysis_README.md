@@ -9,9 +9,6 @@ Naby Karki
 ## Introduction  
 In this project, we explore consumer complaint narratives collected by the Consumer Financial Protection Bureau (CFPB). Our goal is to gain insights into trends over time, identify the most common complaint issues and products, and examine the sentiment expressed by consumers. Through data cleaning, sentiment analysis, and various visualizations, we aim to reveal meaningful patterns in consumer concerns regarding financial services.
 
-<div align="center">
-<img src="Images/complaints_over_time.png" width="500">
-</div>
 
 ---
 
