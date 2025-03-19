@@ -19,7 +19,7 @@ get_sentiments("nrc")
 setwd("C:/Users/nabin/OneDrive/Documents/r_projects/Text_analysis")
 
 # Load data
-complaints <- read.csv("Consumer_Complaints.csv", stringsAsFactors = FALSE)
+complaints <- read.csv("Text_analysis.csv", stringsAsFactors = FALSE)
 
 # Filter out rows with non-empty complaint narratives
 complaints_clean <- complaints %>%
