@@ -88,7 +88,7 @@ Dominant terms such as **account**, **credit**, **payment**, **report**, **loan*
 
 ---
 
-### 3. Sentiment Analysis using Bing Lexicon  
+### 3. Sentiment Analysis   
 <div align="center">
 <img src="Images/sentiment_bing.png" width="500">
 </div>
