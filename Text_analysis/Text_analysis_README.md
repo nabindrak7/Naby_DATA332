@@ -54,9 +54,9 @@ cleaned_narratives <- complaints_clean %>%
 
 4. **Exporting Cleaned Data**
    - The cleaned narrative data was exported as a CSV file for documentation and reproducibility.
-'''r
+```r
 write.csv(cleaned_narratives, "Cleaned_Narratives.csv", row.names = FALSE)
-'''
+```
 
 ---
 
