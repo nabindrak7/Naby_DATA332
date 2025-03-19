@@ -1,6 +1,10 @@
 
 # 📊 Consumer Complaints Analysis
 
+![complaints](https://github.com/user-attachments/assets/b50fa5fa-c463-4a43-b392-5d63983a261a)
+
+
+
 ## Contributor ✍️  
 Naby Karki
 
@@ -21,7 +25,6 @@ The following columns from the dataset were used in the analysis:
 3. **Issue**: Specific problem reported by the consumer.
 4. **Date Received**: Date when the complaint was submitted.
 5. **Consumer Complaint Narrative**: Narrative description of the consumer's issue.
-![complaints](https://github.com/user-attachments/assets/b50fa5fa-c463-4a43-b392-5d63983a261a)
 
 ---
 
