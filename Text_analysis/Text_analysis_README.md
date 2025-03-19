@@ -29,14 +29,33 @@ The following columns from the dataset were used in the analysis:
 1. **Filtering Non-Empty Narratives**
    - Rows with empty complaint narratives were excluded to focus only on meaningful, text-rich entries that allow for sentiment analysis and keyword extraction.
 
+complaints_clean <- complaints %>%
+  filter(!is.na(Consumer.complaint.narrative))
+
+
 2. **Removal of Placeholder Words**
    - Entries containing placeholder text such as `'xxxx'` were filtered out to ensure the authenticity and clarity of the text data.
+
+complaints_clean <- complaints_clean %>%
+  filter(!str_detect(tolower(Consumer.complaint.narrative), "\\bxxxx\\b"))
+
 
 3. **Text Normalization**
    - Text narratives were converted to lowercase, punctuation and numeric values were removed, and stopwords (common words like "the", "and") were filtered out.
 
+cleaned_narratives <- complaints_clean %>%
+  unnest_tokens(word, Consumer.complaint.narrative) %>%
+  anti_join(stop_words) %>%
+  filter(!str_detect(word, "^[0-9]+$")) %>%
+  filter(word != "xxxx")
+
+
 4. **Exporting Cleaned Data**
    - The cleaned narrative data was exported as a CSV file for documentation and reproducibility.
+
+
+write.csv(cleaned_narratives, "Cleaned_Narratives.csv", row.names = FALSE)
+
 
 ---
 
