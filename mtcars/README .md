@@ -54,8 +54,9 @@ shiny::runApp("app.R")
 ## 📊 Visualizations & Observations
 
 ### 🔹 Figure 1: Distribution of Miles per Gallon (mpg)
+![mpg_histogram](https://github.com/user-attachments/assets/0c6aca66-c6d6-4033-b1fa-251b0b29f006)
 
-![Figure 1: MPG Histogram](mpg_histogram.png)
+
 
 **Observation:**  
 The distribution of `mpg` is slightly right-skewed, indicating most vehicles in the dataset have moderate fuel efficiency, with fewer high-mileage outliers.
@@ -64,7 +65,8 @@ The distribution of `mpg` is slightly right-skewed, indicating most vehicles in 
 
 ### 🔹 Figure 2: Distribution of Horsepower (hp)
 
-![Figure 2: Horsepower Histogram](hp_histogram.png)
+![hp_histogram](https://github.com/user-attachments/assets/93605c3e-45ee-42a5-a690-709abae614ad)
+
 
 **Observation:**  
 `hp` shows a bell-like shape with a small cluster of high-powered vehicles, typical of performance or muscle cars in the dataset.
@@ -73,7 +75,8 @@ The distribution of `mpg` is slightly right-skewed, indicating most vehicles in 
 
 ### 🔹 Figure 3: Distribution of Weight (wt)
 
-![Figure 3: Weight Histogram](wt_histogram.png)
+![wt_histogram](https://github.com/user-attachments/assets/0ed86e81-30e0-4aae-9eb0-13b85b27fdce)
+
 
 **Observation:**  
 `wt` is fairly normally distributed with a concentration around 3,000 lbs, showing many mid-weight vehicles. The density curve (if enabled) matches this symmetrical pattern.
@@ -82,7 +85,7 @@ The distribution of `mpg` is slightly right-skewed, indicating most vehicles in 
 
 ### 🔹 Figure 4: Displacement (disp)
 
-![Figure 4: Displacement Histogram](disp_histogram.png)
+![disp_histogram](https://github.com/user-attachments/assets/e99ee3db-c0ba-4790-8226-cc0b6f0c8698)
 
 **Observation:**  
 This distribution is multi-modal, indicating clusters of engine displacement sizes—likely corresponding to categories like 4-cylinder, 6-cylinder, and 8-cylinder engines.
@@ -90,8 +93,8 @@ This distribution is multi-modal, indicating clusters of engine displacement siz
 ---
 
 ### 🔹 Figure 5: Quarter Mile Time (qsec)
+![qsec_histogram](https://github.com/user-attachments/assets/c72556d6-a676-416a-aab8-68f89520cb97)
 
-![Figure 5: Quarter Mile Time Histogram](qsec_histogram.png)
 
 **Observation:**  
 Most cars in the dataset complete a quarter mile in around 17–19 seconds, with a small tail of faster-performing vehicles. The density overlay helps visualize the slight skew.
@@ -121,4 +124,4 @@ Each step scaffolds understanding from static output to full interactivity.
 
 **Naby Karki**  
 Interactive Visualization Project for Data Science & Shiny Development  
-Built with 💙 using `shiny`, `ggplot2`, and `shinycssloaders`
+Built using `shiny`, `ggplot2`, and `shinycssloaders`
