@@ -71,6 +71,7 @@ Roughly **67.56%** of all observed vehicles were over the speed limit, showing a
 ---
 
 ### 3. Student Observations  
+![image](https://github.com/user-attachments/assets/eb85a707-eb4a-4ff0-87e8-9e4882bccb80)
 
 | Student     | Min (mph) | Max (mph) | Mean (mph) | Median (mph) |
 |-------------|-----------|-----------|------------|--------------|
@@ -97,6 +98,7 @@ Roughly **67.56%** of all observed vehicles were over the speed limit, showing a
 ---
 
 ### 5. Car Type – Average Speed  
+![image](https://github.com/user-attachments/assets/33012566-e27f-4689-aae0-84564143f303)
 
 | Car Type | Average Speed (mph) |
 |----------|---------------------|
