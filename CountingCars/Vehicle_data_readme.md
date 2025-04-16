@@ -127,6 +127,11 @@ All car types exhibit average speeds above the speed limit, with **SUVs** and **
 
 ---
 
+### 7. Scatter Plot - Time v/s Speed
+![image](https://github.com/user-attachments/assets/85d7a71f-4877-4f69-957c-119834a5e302)
+
+---
+
 ## Tools & Libraries Used 🛠️  
 
 - `shiny`  
