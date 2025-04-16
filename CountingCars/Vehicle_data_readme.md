@@ -44,6 +44,8 @@ This project features an interactive **Shiny dashboard** that explores vehicle s
 
 ### 1. Speed Category Distribution  
 
+![image](https://github.com/user-attachments/assets/eca22b58-2fdc-4e3b-9300-4154675795b5)
+
 | Category              | Count |
 |-----------------------|-------|
 | Within Limit (≤30)    | 73    |
