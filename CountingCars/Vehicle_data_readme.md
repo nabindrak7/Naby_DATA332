@@ -4,7 +4,9 @@
 ---
 
 ## Contributor ✍️  
-**Naby Karki**
+**Nabindra**
+**Aryaman**
+**Priyanjana**
 
 ---
 
