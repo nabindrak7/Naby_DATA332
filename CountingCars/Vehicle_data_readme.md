@@ -1,9 +1,9 @@
 
-# 🚗 Vehicle Speed Analysis - Rock Island, IL
+#Vehicle Speed Analysis - Rock Island, IL
 
 ---
 
-## Contributor ✍️  
+## Contributor 
 **Nabindra**
 **Aryaman**
 **Priyanjana**
@@ -15,7 +15,7 @@ This project features an interactive **Shiny dashboard** that explores vehicle s
 
 ---
 
-## Dictionary 📚  
+## Dictionary   
 
 | Column Name           | Description                                         |
 |------------------------|-----------------------------------------------------|
@@ -29,7 +29,7 @@ This project features an interactive **Shiny dashboard** that explores vehicle s
 
 ---
 
-## Data Cleaning 🧹  
+## Data Cleaning   
 
 - Converted `Time` column to time format for accurate plotting.
 - Derived new variable `SpeedCategory`:
@@ -132,7 +132,7 @@ All car types exhibit average speeds above the speed limit, with **SUVs** and **
 
 ---
 
-## Tools & Libraries Used 🛠️  
+## Tools & Libraries Used 
 
 - `shiny`  
 - `ggplot2`  
@@ -144,6 +144,6 @@ All car types exhibit average speeds above the speed limit, with **SUVs** and **
 
 ---
 
-## Conclusion ✅  
+## Conclusion  
 
 This analysis revealed a concerning rate of speeding (over 67%) in Rock Island. Student observations differed in time, car types, and speed patterns. Priyanjana recorded the fastest speeds, while SUVs consistently topped both speed and violation counts. These findings suggest the need for awareness campaigns or enforcement focus on high-risk periods and vehicle categories. The interactive dashboard supports deeper, user-driven exploration of the dataset to inform public policy or classroom discussions.
