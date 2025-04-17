@@ -11,7 +11,7 @@
 ---
 
 ## Introduction  
-This project features an interactive **Shiny dashboard** that explores vehicle speed data collected by students in Rock Island, IL. The app enables users to investigate when and how often vehicles exceed speed limits, how student observations vary, and how car types relate to speeding behavior. By categorizing speed and providing statistical visualizations, the dashboard supports insights into traffic patterns and safety awareness.
+This project features an interactive **Shiny dashboard** that explores vehicle speed data collected by us. The app enables users to investigate when and how often vehicles exceed speed limits, how student observations vary, and how car types relate to speeding behavior. By categorizing speed and providing statistical visualizations, the dashboard supports insights into traffic patterns and safety awareness.
 
 ---
 
