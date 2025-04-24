@@ -1,4 +1,4 @@
-Student,Date,Time,Car Type,Speed (mph),Over Speed Limit,Slowed Down
+Student,Date,Time,Car Type,Speed,Over Speed Limit,Slowed Down
 Nabindra,4/5/2025,8:00,SUV,34,True,Yes
 Nabindra,4/5/2025,8:00,Minivan,38,True,Yes
 Nabindra,4/5/2025,8:01,SUV,32,True,Yes
