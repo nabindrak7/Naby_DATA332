@@ -85,7 +85,8 @@ ui <- fluidPage(
                   tabPanel("Trips by Base + Month", plotOutput("base_month_plot")),
                   tabPanel("Heatmaps",              plotOutput("heatmap_plot")),
                   tabPanel("Map",                   leafletOutput("map", height = "600px")),
-                  tabPanel("Prediction",            plotOutput("model_plot"), verbatimTextOutput("model_summary"))
+                  tabPanel("Prediction",            plotOutput("model_plot"), verbatimTextOutput("model_summary")),
+                  tabPanel("Pivot Table",           DTOutput("pivot_table"))  # <- Added Pivot Table tab
       )
     )
   )
@@ -173,7 +174,10 @@ server <- function(input, output, session) {
   })
   
   output$heatmap_plot <- renderPlot({
-    data <- filtered_data()
+    data <- filtered_data() %>%
+      drop_na(hour, day, wday, month, week, base) %>%
+      sample_n(min(5000, n()))
+    
     if (input$heat_type == "hour_day") {
       mat <- dcast(data, wday ~ hour, length)
       row_var <- "wday"
@@ -194,14 +198,14 @@ server <- function(input, output, session) {
       scale_fill_viridis_c() +
       labs(
         title = paste("Heatmap:", input$heat_type),
-        subtitle = "Color intensity represents trip count for the selected time combination.",
+        subtitle = "Color intensity represents trip count (sample of 5,000 rows).",
         x = names(mat)[2], y = row_var, fill = "Trips"
       ) +
       theme_minimal()
   })
   
   output$map <- renderLeaflet({
-    samp <- filtered_data() %>% drop_na(lat, lon) %>% sample_n(min(20000, n()))
+    samp <- filtered_data() %>% drop_na(lat, lon) %>% sample_n(min(5000, n()))
     leaflet(samp) %>%
       addTiles() %>%
       addCircleMarkers(
@@ -215,7 +219,7 @@ server <- function(input, output, session) {
   })
   
   output$model_summary <- renderPrint({
-    md <- filtered_data() %>% count(hour, wday) %>% sample_n(min(20000, n()))
+    md <- filtered_data() %>% count(hour, wday) %>% sample_n(min(5000, n()))
     md$wday <- as.numeric(factor(md$wday, levels = levels(uber_data$wday)))
     md$peak <- ifelse(md$n > quantile(md$n, 0.75), "Yes", "No")
     md$peak <- factor(md$peak)
@@ -225,7 +229,7 @@ server <- function(input, output, session) {
   })
   
   output$model_plot <- renderPlot({
-    md <- filtered_data() %>% count(hour, wday) %>% sample_n(min(20000, n()))
+    md <- filtered_data() %>% count(hour, wday) %>% sample_n(min(5000, n()))
     md$wday <- as.numeric(factor(md$wday, levels = levels(uber_data$wday)))
     md$peak <- ifelse(md$n > quantile(md$n, 0.75), "Yes", "No")
     md$peak <- factor(md$peak)
@@ -233,6 +237,21 @@ server <- function(input, output, session) {
     rpart.plot::rpart.plot(fit$finalModel,
                            main = "Decision Tree for Predicting Peak Hours",
                            sub = "Based on hour and day of week. Split nodes show conditions for 'Peak'.")
+  })
+  
+  # --- Pivot Table Output ---
+  output$pivot_table <- renderDT({
+    df <- filtered_data()
+    pivot <- df %>%
+      count(month, hour) %>%
+      tidyr::pivot_wider(
+        names_from = hour,
+        values_from = n,
+        values_fill = 0
+      ) %>%
+      arrange(match(month, month.name[4:9]))
+    
+    datatable(pivot, options = list(pageLength = 6), rownames = FALSE)
   })
 }
 
