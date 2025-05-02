@@ -265,6 +265,7 @@ output$model_plot <- renderPlot({
 Visualizes the decision tree model with conditions used to determine peak-hour classification.
 
 ---
+## Pivot Table
 
 ```r
 output$pivot_table <- renderDT({
