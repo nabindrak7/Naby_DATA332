@@ -209,18 +209,18 @@ Each heatmap visualizes the density of trips across time or dispatch base dimens
 
 ```r
 output$map <- renderLeaflet({
-  samp <- filtered_data() %>% drop_na(lat, lon) %>% sample_n(min(20000, n()))
-  leaflet(samp) %>%
-    addTiles() %>%
-    addCircleMarkers(
-      lng = ~lon,
-      lat = ~lat,
-      radius = 3,
-      stroke = FALSE,
-      fillOpacity = 0.4,
-      clusterOptions = markerClusterOptions()
-    )
-})
+    samp <- filtered_data() %>% drop_na(lat, lon) %>% sample_n(min(5000, n()))
+    leaflet(samp) %>%
+      addTiles() %>%
+      addCircleMarkers(
+        lng = ~lon,
+        lat = ~lat,
+        radius = 3,
+        stroke = FALSE,
+        fillOpacity = 0.4,
+        clusterOptions = markerClusterOptions()
+      )
+  })
 ```
 
 **Description**:  
@@ -232,7 +232,7 @@ An interactive leaflet map showing sampled pickup locations with clustering enab
 
 ```r
 output$model_summary <- renderPrint({
-  md <- filtered_data() %>% count(hour, wday) %>% sample_n(min(20000, n()))
+  md <- filtered_data() %>% count(hour, wday) %>% sample_n(min(5000, n()))
   md$wday <- as.numeric(factor(md$wday, levels = levels(uber_data$wday)))
   md$peak <- ifelse(md$n > quantile(md$n, 0.75), "Yes", "No")
   md$peak <- factor(md$peak)
@@ -251,7 +251,7 @@ Trains a decision tree model using hour and day of week to predict whether a giv
 
 ```r
 output$model_plot <- renderPlot({
-  md <- filtered_data() %>% count(hour, wday) %>% sample_n(min(20000, n()))
+  md <- filtered_data() %>% count(hour, wday) %>% sample_n(min(5000, n()))
   md$wday <- as.numeric(factor(md$wday, levels = levels(uber_data$wday)))
   md$peak <- ifelse(md$n > quantile(md$n, 0.75), "Yes", "No")
   md$peak <- factor(md$peak)
@@ -261,8 +261,37 @@ output$model_plot <- renderPlot({
     sub = "Based on hour and day of week. Split nodes show conditions for 'Peak'.")
 })
 ```
-
 **Description**:  
 Visualizes the decision tree model with conditions used to determine peak-hour classification.
+
+---
+
+```r
+output$pivot_table <- renderDT({
+    df <- filtered_data()
+    pivot <- df %>%
+      count(month, hour) %>%
+      tidyr::pivot_wider(
+        names_from = hour,
+        values_from = n,
+        values_fill = 0
+      ) %>%
+      arrange(match(month, month.name[4:9]))
+    
+    datatable(pivot, options = list(pageLength = 6), rownames = FALSE)
+  })
+}
+```
+
+**Description**:  
+The Pivot Table displays the total number of Uber trips for each hour of the day across different months (April to September 2014).
+
+Rows represent each month.
+
+Columns represent each hour of the day (0–23).
+
+Values show the total trip counts.
+
+This format helps identify which hours are busiest for Uber pickups in each month, revealing peak operation times and monthly patterns in user activity.
 
 ---
