@@ -1,6 +1,8 @@
 # 🚕 Uber Trips Dashboard (April–September 2014)
 ![3e8eb2ffab960f9c8970ebd0e2db277d](https://github.com/user-attachments/assets/57dcc64e-3a59-4804-bde3-b576db18dc82)
 
+
+
 ## Contributor ✍️  
 Naby Karki
 
