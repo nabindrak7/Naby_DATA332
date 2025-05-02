@@ -1,6 +1,18 @@
 # 🚕 Uber Trips Dashboard (April–September 2014)
 ![3e8eb2ffab960f9c8970ebd0e2db277d](https://github.com/user-attachments/assets/57dcc64e-3a59-4804-bde3-b576db18dc82)
 
+## Contributor ✍️  
+Naby Karki
+
+---
+
+## Introduction  
+In this project, I analyzed Uber trip data collected from New York City between April and September 2014. My objective is to uncover meaningful trends in ride activity by examining temporal and spatial dimensions, such as hour of the day, day of the week, and dispatch base. Using data preprocessing, interactive visualizations, geospatial mapping, and a predictive model,and aim to provide a comprehensive understanding of when and where ride demand peaks. The dashboard enables users to explore trip patterns, detect high-traffic periods, and visualize rider behavior across different time frames and locations.
+
+
+---
+
+
 ## 📌 Objective
 
 This Shiny dashboard visualizes Uber pickup data from April to September 2014. It provides interactive charts, heatmaps, a geospatial map, and a machine learning prediction model to analyze ride patterns by hour, day, base, and month, and to predict peak hours.
