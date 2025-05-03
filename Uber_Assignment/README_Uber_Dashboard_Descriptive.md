@@ -38,7 +38,42 @@ The dashboard provides interactive plots, heatmaps, geospatial maps, and a decis
 ## 📁 Data Loading & Preprocessing
 
 ```r
-# see load_uber_data() in Uber_Assignment.R
+# load_uber_data <- function() {
+  months <- c("apr14", "may14", "jun14", "jul14", "aug14", "sep14")
+  base_url <- "https://github.com/nabindrak7/Naby_DATA332/raw/96371d22ee71ad11a0b910912c19002ebbb0be86/Uber_Assignment/"
+  tmp_dir <- tempdir()
+  all_data <- list()
+  
+  for (i in seq_along(months)) {
+    mcode <- months[i]
+    zip_path <- file.path(tmp_dir, paste0("uber-", mcode, ".zip"))
+    download.file(paste0(base_url, "uber-raw-data-", mcode, ".zip"), zip_path, mode = "wb")
+    unzip(zip_path, exdir = tmp_dir)
+    csvs <- list.files(tmp_dir, pattern = paste0(mcode, ".*\\.csv$"), full.names = TRUE)
+    if (length(csvs) == 1) {
+      df <- read_csv(csvs, show_col_types = FALSE) %>% clean_names()
+      if (all(c("lat", "lon", "date_time") %in% names(df))) {
+        df <- df %>%
+          mutate(
+            lat = as.numeric(lat),
+            lon = as.numeric(lon),
+            date_time = mdy_hms(date_time),
+            hour = hour(date_time),
+            day = day(date_time),
+            wday = wday(date_time, label = TRUE, abbr = FALSE),
+            month = month(date_time, label = TRUE, abbr = FALSE),
+            week = week(date_time)
+          ) %>%
+          drop_na(date_time, lat, lon)
+        all_data[[i]] <- df
+      }
+    }
+  }
+  bind_rows(all_data)
+}
+
+uber_data <- load_uber_data()
+available_months <- sort(unique(uber_data$month))
 ```
 
 **Description**:  
