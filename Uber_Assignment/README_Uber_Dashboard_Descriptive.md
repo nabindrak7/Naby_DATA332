@@ -4,7 +4,7 @@
 ![3e8eb2ffab960f9c8970ebd0e2db277d](https://github.com/user-attachments/assets/b507d8a0-2d99-4ffa-a8ec-0f49aeac1e35)
 
 
-🔗 **Live Dashboard:** [http://nabykarki21.shinyapps.io/uber_assignment](http://nabykarki21.shinyapps.io/uber_assignment)
+🔗 **Shiny APP:** [http://nabykarki21.shinyapps.io/uber_assignment](http://nabykarki21.shinyapps.io/uber_assignment)
 
 ## Contributor ✍️  
 Naby Karki
