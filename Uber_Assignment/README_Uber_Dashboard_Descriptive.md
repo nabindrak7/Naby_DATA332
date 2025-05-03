@@ -1,6 +1,9 @@
 
 # 🚕 Uber Trips Dashboard (April–September 2014)
 
+![3e8eb2ffab960f9c8970ebd0e2db277d](https://github.com/user-attachments/assets/b507d8a0-2d99-4ffa-a8ec-0f49aeac1e35)
+
+
 🔗 **Live Dashboard:** [http://nabykarki21.shinyapps.io/uber_assignment](http://nabykarki21.shinyapps.io/uber_assignment)
 
 ## Contributor ✍️  
@@ -289,6 +292,14 @@ output$pivot_table <- renderDT({
 ```
 
 **Description**:  
-Displays a month-wise table of trip counts broken down by hour. Useful for spotting hourly peaks per month in tabular form.
+The Pivot Table displays the total number of Uber trips for each hour of the day across different months (April to September 2014).
+
+Rows represent each month.
+
+Columns represent each hour of the day (0–23).
+
+Values show the total trip counts.
+
+This format helps identify which hours are busiest for Uber pickups in each month, revealing peak operation times and monthly patterns in user activity.
 
 ---
