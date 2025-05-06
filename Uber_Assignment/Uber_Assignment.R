@@ -12,6 +12,7 @@ library(leaflet.extras)
 library(caret)
 library(reshape2)
 library(rpart.plot)
+library(bslib)
 
 # --- Load & Preprocess Data ---
 load_uber_data <- function() {
@@ -51,26 +52,41 @@ load_uber_data <- function() {
 uber_data <- load_uber_data()
 available_months <- sort(unique(uber_data$month))
 
-# --- UI ---
+# --- Uber-Themed UI ---
+uber_theme <- bs_theme(
+  bg = "#121212",
+  fg = "#E0E0E0",
+  primary = "#1DB954",
+  base_font = font_google("Roboto")
+)
+
 ui <- fluidPage(
-  titlePanel("Uber Trips Dashboard (Apr–Sep 2014)"),
+  theme = uber_theme,
+  tags$head(tags$style(HTML(".card {background-color: #1E1E1E; border-radius: 12px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.3); color: #E0E0E0;} .help-text {font-size: 13px; font-style: italic; color: #B0B0B0;}"))),
+  div(
+    style = "display: flex; align-items: center; gap: 15px; margin-bottom: 20px;",
+    tags$img(src = "https://upload.wikimedia.org/wikipedia/commons/c/cc/Uber_logo_2018.png", height = "50px"),
+    h2("Uber Trips Dashboard (2014)", style = "color: #E0E0E0; margin: 0;")
+  ),
+  
   sidebarLayout(
     sidebarPanel(
+      style = "background-color: #1A1A1A; border-radius: 10px;",
       conditionalPanel(
         condition = "!(input.tabs == 'Heatmaps' || input.tabs == 'Map' || input.tabs == 'Pivot Table')",
-        selectInput("selected_months", "Select Month:",
+        selectInput("selected_months", "\U0001F4C5 Select Month:",
                     choices = as.character(available_months),
                     selected = as.character(available_months[1]))
       ),
       conditionalPanel(
         condition = "input.tabs == 'Pivot Table'",
-        selectInput("selected_months_pivot", "Select Month:",
+        selectInput("selected_months_pivot", "\U0001F4C5 Select Month:",
                     choices = c("All", as.character(available_months)),
                     selected = "All")
       ),
       conditionalPanel(
         condition = "input.tabs == 'Heatmaps'",
-        selectInput("heat_type", "Heatmap Type:",
+        selectInput("heat_type", "\U0001F4CA Heatmap Type:",
                     choices = c("Hour vs Day" = "hour_day",
                                 "Month vs Day" = "month_day",
                                 "Month vs Week" = "month_week",
@@ -79,81 +95,27 @@ ui <- fluidPage(
     ),
     mainPanel(
       tabsetPanel(id = "tabs",
-                  tabPanel("Trips by Hour",
-                           helpText("This bar chart shows total Uber trips by hour of the day. Red bars represent the top 25% busiest hours (peak hours)."),
-                           plotOutput("hour_plot")),
-                  tabPanel("Trips by Hour + Month",
-                           helpText("This grouped bar chart displays hourly trip counts for each month, helping compare daily demand patterns month-to-month."),
-                           plotOutput("hour_month_plot")),
-                  tabPanel("Trips by Day",
-                           helpText("This chart shows the number of trips taken each day of the month for the selected month."),
-                           plotOutput("day_plot"),
-                           dataTableOutput("day_table")),
-                  tabPanel("Trips by Day + Month",
-                           helpText("This chart compares trip counts by weekday across months to spot weekday/weekend trends."),
-                           plotOutput("day_month_plot")),
-                  tabPanel("Trips by Base + Month",
-                           helpText("Displays how many trips originated from each Uber base during each month."),
-                           plotOutput("base_month_plot")),
-                  tabPanel("Heatmaps",
-                           tabsetPanel(id = "heatmap_subtab",
-                                       tabPanel("April",
-                                                helpText("Heatmap for April: visualizes relationships based on selected variables (e.g., Hour vs Day, Month vs Week, etc.)."),
-                                                plotOutput("heatmap_April")),
-                                       tabPanel("May",
-                                                helpText("Heatmap for May: visualizes relationships based on selected variables (e.g., Hour vs Day, Month vs Week, etc.)."),
-                                                plotOutput("heatmap_May")),
-                                       tabPanel("June",
-                                                helpText("Heatmap for June: visualizes relationships based on selected variables (e.g., Hour vs Day, Month vs Week, etc.)."),
-                                                plotOutput("heatmap_June")),
-                                       tabPanel("July",
-                                                helpText("Heatmap for July: visualizes relationships based on selected variables (e.g., Hour vs Day, Month vs Week, etc.)."),
-                                                plotOutput("heatmap_July")),
-                                       tabPanel("August",
-                                                helpText("Heatmap for August: visualizes relationships based on selected variables (e.g., Hour vs Day, Month vs Week, etc.)."),
-                                                plotOutput("heatmap_August")),
-                                       tabPanel("September",
-                                                helpText("Heatmap for September: visualizes relationships based on selected variables (e.g., Hour vs Day, Month vs Week, etc.)."),
-                                                plotOutput("heatmap_September"))
-                           )),
-                  tabPanel("Map",
-                           tabsetPanel(id = "map_subtab",
-                                       tabPanel("April",
-                                                helpText("Leaflet map of Uber pickup locations in April. Clusters represent areas with high pickup density."),
-                                                leafletOutput("map_April", height = "600px")),
-                                       tabPanel("May",
-                                                helpText("Leaflet map of Uber pickup locations in May. Clusters represent areas with high pickup density."),
-                                                leafletOutput("map_May", height = "600px")),
-                                       tabPanel("June",
-                                                helpText("Leaflet map of Uber pickup locations in June. Clusters represent areas with high pickup density."),
-                                                leafletOutput("map_June", height = "600px")),
-                                       tabPanel("July",
-                                                helpText("Leaflet map of Uber pickup locations in July. Clusters represent areas with high pickup density."),
-                                                leafletOutput("map_July", height = "600px")),
-                                       tabPanel("August",
-                                                helpText("Leaflet map of Uber pickup locations in August. Clusters represent areas with high pickup density."),
-                                                leafletOutput("map_August", height = "600px")),
-                                       tabPanel("September",
-                                                helpText("Leaflet map of Uber pickup locations in September. Clusters represent areas with high pickup density."),
-                                                leafletOutput("map_September", height = "600px"))
-                           )),
-                  tabPanel("Prediction",
-                           helpText("A decision tree model predicts peak ride hours based on weekday and hour. Visualization shows how the tree splits."),
-                           plotOutput("model_plot"),
-                           verbatimTextOutput("model_summary")),
-                  tabPanel("Pivot Table",
-                           helpText("Pivot table showing trip counts by hour for each month. Use the dropdown to filter by month."),
-                           DTOutput("pivot_table"))
+                  tabPanel("Trips by Hour", div(class = "card", div(class = "help-text", "\U0001F4C8 Total Uber trips by hour of the day. Red bars = top 25% busiest hours."), plotOutput("hour_plot"))),
+                  tabPanel("Trips by Hour + Month", div(class = "card", div(class = "help-text", "\U0001F5D3 Hourly trip counts for each month."), plotOutput("hour_month_plot"))),
+                  tabPanel("Trips by Day", div(class = "card", div(class = "help-text", "\U0001F4C6 Number of trips taken each day."), plotOutput("day_plot"), dataTableOutput("day_table"))),
+                  tabPanel("Trips by Day + Month", div(class = "card", div(class = "help-text", "\U0001F4C5 Weekday/weekend trip trends across months."), plotOutput("day_month_plot"))),
+                  tabPanel("Trips by Base + Month", div(class = "card", div(class = "help-text", "\U0001F3E2 Trip counts by Uber base and month."), plotOutput("base_month_plot"))),
+                  tabPanel("Heatmaps", do.call(tabsetPanel, c(id = "heatmap_subtab",
+                                                              lapply(month.name[4:9], function(m) {
+                                                                tabPanel(m, div(class = "card", div(class = "help-text", paste("\U0001F525 Heatmap for", m)), plotOutput(paste0("heatmap_", m))))
+                                                              })
+                  ))),
+                  tabPanel("Map", do.call(tabsetPanel, c(id = "map_subtab",
+                                                         lapply(month.name[4:9], function(m) {
+                                                           tabPanel(m, div(class = "card", div(class = "help-text", paste("\U0001F5FA Pickup map for", m)), leafletOutput(paste0("map_", m), height = "600px")))
+                                                         })
+                  ))),
+                  tabPanel("Prediction", div(class = "card", div(class = "help-text", "\U0001F52E Predict peak hours using decision tree."), plotOutput("model_plot"), verbatimTextOutput("model_summary"))),
+                  tabPanel("Pivot Table", div(class = "card", div(class = "help-text", "\U0001F4CB Pivot table by hour and month."), DTOutput("pivot_table")))
       )
     )
   )
 )
-
-# --- Server ---
-# (Server logic remains unchanged from your original code)
-
-# --- Run App ---
-# shinyApp(ui, server)
 
 
 # --- Server ---
@@ -293,3 +255,4 @@ server <- function(input, output, session) {
 
 # --- Run App ---
 shinyApp(ui, server)
+
